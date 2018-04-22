@@ -20,3 +20,7 @@ Person.create(name: "Nancy Drew",
 Person.create(name: "James Bond", 
           bio: "Shaken, not stirred.",
           bioAvail: true)
+
+Person.create(name: "Amanda Lady", 
+          bio: "Such a lady, a human. Really awesome.",
+          bioAvail: true)
