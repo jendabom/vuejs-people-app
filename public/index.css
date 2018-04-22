@@ -1,6 +1,10 @@
 /* Vue.js fade */
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s
+.fade-enter-active {
+  transition: opacity 3.5s
+}
+
+.fade-leave-active {
+  transition: opacity 1.5s
 }
 .fade-enter, .fade-leave-to {
   opacity: 0
@@ -26,6 +30,6 @@
   transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
 }
 .slide-left-enter, .slide-left-leave-to {
-  transform: translateX(-10px);
+  transform: translateX(-100px);
   opacity: 0;
 }

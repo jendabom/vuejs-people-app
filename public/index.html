@@ -30,8 +30,14 @@
       <option v-for="person in people">{{ person.name }}</option>
     </datalist>
     <p>Search here for Bio:<input type="text" v-model="searchBio"></p>
+
+     <div>
+      <button v-on:click="setSortAttribute('bio')">sort by bio</button>
+      <button v-on:click="setSortAttribute('name')">sort by name</button>
+    </div>
+
     <transition-group name="fade">      
-      <div v-for="person in people" v-if="isValidPerson(person)" v-bind:key="person.id">
+      <div v-for="person in sortedPeople" v-if="isValidPerson(person)" v-bind:key="person.id">
         <h3>{{ person.name }} <button v-on:click="removePerson(person)">Remove Person</button></h3>
          <p>{{ person.bio.toLowerCase() }}</p>
       </div>
@@ -39,7 +45,7 @@
 
     <p>Name: <input v-model="newPerson.name"></p>
     <p>bio: <input v-model="newPerson.bio"></p>
-    <button v-on:click="addPerson()">Submit a new Person</button>
+    <button v-on:click="addPerson()">Add Person</button>
 
   </div>
 </template>

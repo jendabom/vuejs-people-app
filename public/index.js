@@ -8,7 +8,8 @@ var HomePage = {
       people: [],
       newPerson: {name: "", bio:"", bioVisible: true}, 
       searchName: "", 
-      searchBio: ""
+      searchBio: "", 
+      sortAttribute: "name"
     };
   },
   created: function() {
@@ -18,8 +19,18 @@ var HomePage = {
   },
   methods: {
     addPerson: function() {
-      this.people.push(this.newPerson);
-      this.newPerson = {name: "", bio:"", bioVisible: true};
+      var params = {
+        inputName: this.newPerson.name,
+        inputBio: this.newPerson.bio
+      };
+      axios.post("/people", params).then(function(response) {
+        this.people.push(response.data);
+        this.newPerson = {name: "", bio: "", bioVisible: true};
+        this.errors = [];
+      }.bind(this)).catch(function(error) {
+        console.log(error.response.data.errors);
+        this.errors = error.response.data.errors;
+      }.bind(this));
     }, 
     removePerson: function(thePerson) {
       var index = this.people.indexOf(thePerson);
@@ -29,9 +40,20 @@ var HomePage = {
       var validBio = inputPerson.bio.toLowerCase().includes(this.searchBio.toLowerCase());
       var validName = inputPerson.name.toLowerCase().includes(this.searchName.toLowerCase());
       return validBio && validName;
+    },
+    setSortAttribute: function(inputAttribute) {
+      this.sortAttribute = inputAttribute;
     }
   },
-  computed: {}
+  computed: {
+    sortedPeople: function() {
+      return this.people.sort(function(person1, person2) {
+        var person1Attribute = person1[this.sortAttribute].toLowerCase();
+        var person2Attribute = person2[this.sortAttribute].toLowerCase();
+        return person1Attribute.localeCompare(person2Attribute);
+      }.bind(this));
+    }
+  }
 };
 
 var router = new VueRouter({
