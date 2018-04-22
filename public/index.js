@@ -30,17 +30,14 @@ var HomePage = {
   created: function() {},
   methods: {
     addPerson: function() {
-      console.log("I am a Person");
       this.people.push(this.newPerson);
       this.newPerson = {name: "", bio:"", bioVisible: true};
     }, 
     removePerson: function(thePerson) {
-      console.log(thePerson);
       var index = this.people.indexOf(thePerson);
       this.people.splice(index, 1);
     },
     isValidPerson: function(inputPerson) {
-      console.log('running isValidPerson');
       var validBio = inputPerson.bio.toLowerCase().includes(this.searchBio.toLowerCase());
       var validName = inputPerson.name.toLowerCase().includes(this.searchName.toLowerCase());
       return validBio && validName;
