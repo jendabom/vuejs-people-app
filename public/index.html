@@ -7,6 +7,7 @@
   <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.js"></script>
   <script src="index.js" defer></script>
+  <link rel="stylesheet" href="index.css"></style>
 </head>
 <body>
   <div id="vue-app">
@@ -28,11 +29,13 @@
     <datalist id="names">
       <option v-for="person in people">{{ person.name }}</option>
     </datalist>
-    <p>Search here for Bio:<input type="text" v-model="searchBio"></p>      
-    <div v-for="person in people" v-if="isValidPerson(person)">
-      <h3>{{ person.name }} <button v-on:click="removePerson(person)">Remove Person</button></h3>
-       <p>{{ person.bio.toLowerCase() }}</p>
-    </div>
+    <p>Search here for Bio:<input type="text" v-model="searchBio"></p>
+    <transition-group name="fade">      
+      <div v-for="person in people" v-if="isValidPerson(person)" v-bind:key="person.id">
+        <h3>{{ person.name }} <button v-on:click="removePerson(person)">Remove Person</button></h3>
+         <p>{{ person.bio.toLowerCase() }}</p>
+      </div>
+    </transition-group>
 
     <p>Name: <input v-model="newPerson.name"></p>
     <p>bio: <input v-model="newPerson.bio"></p>
