@@ -5,29 +5,17 @@ var HomePage = {
   data: function() {
     return {
       message: "Welcome to Vue.js!",
-      people: [
-        {
-          name: "Joe Bob", 
-          bio: "From a land down under?",
-          bioAvail: true
-        },
-        {
-          name: "James Peach", 
-          bio: "Peaches are good?",
-          bioAvail: false
-        },
-        {
-          name: "Nancy Drew", 
-          bio: "I solve crimes?",
-          bioAvail: true
-        }
-      ],
+      people: [],
       newPerson: {name: "", bio:"", bioVisible: true}, 
       searchName: "", 
       searchBio: ""
     };
   },
-  created: function() {},
+  created: function() {
+    axios.get("/people").then(function(response) {
+      this.people = response.data;
+    }.bind(this));
+  },
   methods: {
     addPerson: function() {
       this.people.push(this.newPerson);
